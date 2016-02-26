@@ -43,6 +43,8 @@ request.get({
     handleFlat(url, url.match('seloger') ? body : iconv.decode(new Buffer(body), 'ISO-8859-1'));
 });
 
+app.use(express.static('app'));
+
 app.listen(3000, function() {
   console.log('App is listening');
 });
