@@ -1,0 +1,25 @@
+{
+  "name": "Flat-Scapper",
+  "homepage": "https://github.com/jeromewir/flat-scrapper",
+  "authors": [
+    "wirszt_j <jerome.wirsztel@early-birds.fr>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation-sites": "~6.1.2",
+    "foundation-apps": "~1.2.0"
+  }
+}

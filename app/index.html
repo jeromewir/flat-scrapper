@@ -1,12 +1,46 @@
 <!doctype html>
-<html ng-app>
-  <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-  </head>
+<html ng-app="flat-scrapper">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="main.js"></script>
+</head>
 
-  <body>
-      <div>Name: </div>
-      <input type="text" ng-model="toto"/>
-      <h1>Hello {{toto}}</h1>
-  </body>
+<body ng-controller="mainCtrl">
+  <div class="grid-frame">
+    <div class="dark menu-group">
+      <!-- <div class="title-bar">
+      </div> -->
+      <div class="menu-group-left">
+        <ul class="menu-bar primary">
+          <li>Flat-Scrapper</li>
+          <li><a href="#">Item Too</a></li>
+          <li><a href="#">Item Three</a></li>
+        </ul>
+      </div>
+      <!-- <div class="menu-group-right">
+        <input type="search" placeholder="Search a thing">
+        <a href="#" class="button">Search</a>
+        <ul class="icon-left primary menu-bar">
+          <li>
+          </li>
+        </ul>
+      </div> -->
+    </div>    <section style="margin: 10px;">
+      <section class="block-list">
+        <header>Appartements</header>
+        <ul>
+          <li ng-repeat="flat in flats">{{flat}}</li>
+        </ul>
+      </section>
+    </section>
+  </div>
+</body>
+<link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation-flex.min.css"/>
+<link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation.min.css"/>
+<link rel="stylesheet" href="bower_components/foundation-apps/dist/css/foundation-apps.min.css"/>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/what-input/what-input.min.js"></script>
+<script src="bower_components/foundation-sites/dist/foundation.min.js"></script>
+<script src="bower_components/foundation-apps/dist/js/foundation-apps.min.js"></script>
+
 </html>
