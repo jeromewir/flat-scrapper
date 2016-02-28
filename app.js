@@ -12,6 +12,9 @@ var handlers = {
   pap: require('./handlers/pap'),
   leboncoin: require('./handlers/leboncoin'),
   'logic-immo': require('./handlers/logicImmo'),
+  century: require('./handlers/century'),
+  'guy-hoquet': require('./handlers/guyhoquet'),
+  foncia: require('./handlers/foncia'),
 };
 
 var app = express();
@@ -37,7 +40,7 @@ function handleFlat(url, body, next) {
 }
 
 app.post('/api/flat', (req, res) => {
-  if (!req.body.url) return res.status(400).send({ message: 'Impossible d\'ajouter l\'appartement' });
+  if (!req.body.url) return res.status(400).send({ message: 'URL not found' });
   var url = req.body.url;
   async.waterfall([
     (next) => {
@@ -74,7 +77,6 @@ app.post('/api/flat/:id', (req, res) => {
   Flat.update({ _id: req.body.flat._id }, { $set: req.body.flat }, (err, flat) => {
     if (err) return res.status(500).send({ message: err });
     if (!flat) return res.status(404).send({ message: 'Flat not found' });
-    console.log(flat);
     return res.send({ flat: flat });
   });
 });
@@ -101,8 +103,16 @@ function getBody(url, next) {
       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101 Firefox/24.0',
     },
   }, (err, response, body) => {
-    if (err) return next('Mauvaise URL');
-    return next(null, url.match('seloger') ? body : iconv.decode(new Buffer(body), 'ISO-8859-1'));
+    if (err) {
+      console.error(err);
+      return next('Mauvaise URL');
+    }
+
+    return next(null, url.match('seloger') ||
+      url.match('century') ||
+      url.match('guy-hoquet') ||
+      url.match('foncia') ?
+      body : iconv.decode(new Buffer(body), 'ISO-8859-1'));
   });
 }
 
@@ -111,7 +121,7 @@ app.get('/api/flat', (req, res) => {
 
   Flat.find((err, flats) => {
     if (err) return res.status(500).send({ message: err });
-    return res.status(200).send({ flats: flats, toto: [] });
+    return res.status(200).send({ flats: flats });
   });
 });
 

@@ -18,7 +18,7 @@ class Mongo {
       photos: [String],
       url: String,
       website: String,
-      visited: Boolean,
+      visited: { type: Boolean, default: false },
       district: String,
       comment: String,
     }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }});
