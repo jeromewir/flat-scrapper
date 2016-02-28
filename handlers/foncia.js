@@ -20,7 +20,7 @@ class Foncia {
     $('.OfferSlider-main-item img').each(function() {
       flat.photos.push($(this).attr('src'));
     });
-    
+
     next(null, flat);
   }
 }
