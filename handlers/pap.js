@@ -4,13 +4,14 @@ var cheerio = require('../cheerio');
 var _ = require('lodash');
 
 class Pap {
-  parseFlat(body, next) {
+  parseFlat(body, url, next) {
     var $ = cheerio.get(body);
     var flat = {};
     var reg = /\d./g;
 
     flat.name = $('.header-descriptif .title').text();
     flat.price = parseInt($('.header-descriptif .prix').text().replace('.', ''));
+    flat.url = url;
 
     $('.footer-descriptif li').each(function(i, item) {
       $(this).find('span').remove();
@@ -29,6 +30,8 @@ class Pap {
     $('.showcase-thumbnail img').each(function(i, item) {
       flat.photos.push($(this).attr('src'));
     });
+
+    flat.website = 'PAP';
 
     return next(null, flat);
   }

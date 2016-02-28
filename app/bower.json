@@ -19,7 +19,12 @@
     "tests"
   ],
   "dependencies": {
-    "foundation-sites": "~6.1.2",
-    "foundation-apps": "~1.2.0"
+    "bootstrap": "^3.3.6",
+    "semantic": "semantic-ui#^2.1.8",
+    "angular-moment": "^0.10.3",
+    "moment": "^2.11.2"
+  },
+  "resolutions": {
+    "moment": ">=2.8.0 <2.11.0"
   }
 }

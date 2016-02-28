@@ -3,44 +3,69 @@
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <script src="main.js"></script>
+  <link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css"/>
+  <title>Flat-Scrapper</title>
 </head>
 
 <body ng-controller="mainCtrl">
-  <div class="grid-frame">
-    <div class="dark menu-group">
-      <!-- <div class="title-bar">
-      </div> -->
-      <div class="menu-group-left">
-        <ul class="menu-bar primary">
-          <li>Flat-Scrapper</li>
-          <li><a href="#">Item Too</a></li>
-          <li><a href="#">Item Three</a></li>
-        </ul>
-      </div>
-      <!-- <div class="menu-group-right">
-        <input type="search" placeholder="Search a thing">
-        <a href="#" class="button">Search</a>
-        <ul class="icon-left primary menu-bar">
-          <li>
-          </li>
-        </ul>
-      </div> -->
-    </div>    <section style="margin: 10px;">
-      <section class="block-list">
-        <header>Appartements</header>
-        <ul>
-          <li ng-repeat="flat in flats">{{flat}}</li>
-        </ul>
-      </section>
-    </section>
+<div class="ui menu">
+  <div class="header item">Flat-Scrapper</div>
+  <div class="right item">
+    <div class="ui action input">
+      <input type="text" placeholder="Filtrer" ng-model="search.$">
+      <div class="ui button">Chercher</div>
+    </div>
   </div>
+</div>
+<section style="margin: 10px;">
+  <div ng-show="!!err" class="ui negative icon message">
+    <i class="inbox icon"></i>
+    <div class="content">
+      <div class="header">Erreur</div>
+      <p>{{err}}</p>
+    </div>
+  </div>
+  <form class="ui form" ng-submit="addFlat()">
+    <div class="field">
+      <label>Ajouter un appartement</label>
+      <div class="ui action input">
+        <input type="text" name="URL" placeholder="Lien de l'appartement" ng-model="flatUrl"/>
+        <button class="ui teal right labeled icon button">
+          <i class="add icon"></i>
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </form>
+  <h4>Appartements ({{filtered.length}})</h4>
+  <div class="ui centered cards">
+    <div class="card" style="margin-left: 10px;margin-right: 10px" ng-repeat="flat in filtered = (flats | filter:search:strict)">
+      <div class="ui image">
+        <div class="ui ribbon label" style="{{getLabel(flat)}}; color: white">{{flat.website}}</div>
+        <img src="{{flat.photos && flat.photos.length ? flat.photos[0] : ''}}"/>
+      </div>
+      <div class="content">
+        <div class="header">{{flat.name}}</div>
+        <div class="meta">
+          <div class="right floated">{{moment(flat.createdAt).format('DD-MM-YYYY')}}</div>
+          En attente de visite
+        </div>
+        <div class="description">
+          <p>Prix: {{flat.price}} €</p>
+          <p>Pièce{{flat.rooms > 1 ? 's' : ''}}: {{flat.rooms}}</p>
+          <p>Taille: {{flat.size}} m²</p>
+        </div>
+      </div>
+      <div class="ui bottom attached buttons">
+        <button class="ui teal button" ng-click="openTab(flat.url)">Site</button>
+        <button class="ui grey button">Fiche</button>
+      </div>
+    </div>
+  </div>
+</section>
 </body>
-<link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation-flex.min.css"/>
-<link rel="stylesheet" href="bower_components/foundation-sites/dist/foundation.min.css"/>
-<link rel="stylesheet" href="bower_components/foundation-apps/dist/css/foundation-apps.min.css"/>
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/what-input/what-input.min.js"></script>
-<script src="bower_components/foundation-sites/dist/foundation.min.js"></script>
-<script src="bower_components/foundation-apps/dist/js/foundation-apps.min.js"></script>
-
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/angular-moment/angular-moment.js"></script>
 </html>
