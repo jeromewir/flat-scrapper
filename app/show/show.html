@@ -1,0 +1,38 @@
+<link rel="stylesheet" href="show/show.css"/>
+<div class="flat">
+  <h3>{{flat.name}}</h3>
+  <div id="carousel" class="own-carousel">
+    <div class="item flat-photo" ng-repeat="photo in flat.photos">
+      <img src="{{photo}}">
+    </div>
+  </div>
+  <div class="ui grid stackable centered additional-infos">
+    <div class="three wide column"><h4>{{flat.price}}</h4> €</div>
+    <div class="three wide column"><h4>{{flat.size}}</h4> m²</div>
+    <div class="three wide column"><h4>{{flat.rooms}}</h4> pièce{{flat.rooms > 1 ? 's' : ''}}</div>
+  </div>
+
+  <form class="ui form" ng-submit="saveFlat()">
+    <div class="field">
+      <label>Arrondissement</label>
+      <input type="text" placeholder="12ème, 13ème ..." ng-model="flat.district">
+    </div>
+    <div class="field">
+      <label>Visite</label>
+      <div class="ui toggle checkbox">
+        <input type="checkbox" name="public" ng-model="flat.visited">
+        <label ng-show="flat.visited">L'appartement a été visité</label>
+        <label ng-show="!flat.visited">L'appartement n'a pas été visité</label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Commentaire</label>
+      <textarea ng-model="flat.comment"></textarea>
+    </div>
+    <button class="ui negative button" ng-class="{ loading: isDeleting }" ng-click="deleteFlat($event)">Supprimer</button>
+    <button class="ui button primary right floated" ng-class="{ positive: saveSuccess, loading: isSaving }" type="submit">
+      <span ng-show="!saveSuccess">Sauvegarder</span>
+      <i ng-show="saveSuccess" class="checkmark icon"></i>
+    </button>
+  </form>
+</div>

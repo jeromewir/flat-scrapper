@@ -2,14 +2,15 @@
 <html ng-app="flat-scrapper">
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-  <script src="main.js"></script>
+  <script src="app.js"></script>
   <link rel="stylesheet" href="bower_components/semantic/dist/semantic.min.css"/>
   <title>Flat-Scrapper</title>
 </head>
 
-<body ng-controller="mainCtrl">
+<body>
 <div class="ui menu">
-  <div class="header item">Flat-Scrapper</div>
+  <div class="header item"><a ui-sref="flat">Flat-Scrapper</a></div>
+  <div class="item"><a ui-sref="flat">Accueil</a></div>
   <div class="right item">
     <div class="ui action input">
       <input type="text" placeholder="Filtrer" ng-model="search.$">
@@ -17,55 +18,20 @@
     </div>
   </div>
 </div>
-<section style="margin: 10px;">
-  <div ng-show="!!err" class="ui negative icon message">
-    <i class="inbox icon"></i>
-    <div class="content">
-      <div class="header">Erreur</div>
-      <p>{{err}}</p>
-    </div>
-  </div>
-  <form class="ui form" ng-submit="addFlat()">
-    <div class="field">
-      <label>Ajouter un appartement</label>
-      <div class="ui action input">
-        <input type="text" name="URL" placeholder="Lien de l'appartement" ng-model="flatUrl"/>
-        <button class="ui teal right labeled icon button">
-          <i class="add icon"></i>
-          Ajouter
-        </button>
-      </div>
-    </div>
-  </form>
-  <h4>Appartements ({{filtered.length}})</h4>
-  <div class="ui centered cards">
-    <div class="card" style="margin-left: 10px;margin-right: 10px" ng-repeat="flat in filtered = (flats | filter:search:strict)">
-      <div class="ui image">
-        <div class="ui ribbon label" style="{{getLabel(flat)}}; color: white">{{flat.website}}</div>
-        <img src="{{flat.photos && flat.photos.length ? flat.photos[0] : ''}}"/>
-      </div>
-      <div class="content">
-        <div class="header">{{flat.name}}</div>
-        <div class="meta">
-          <div class="right floated">{{moment(flat.createdAt).format('DD-MM-YYYY')}}</div>
-          En attente de visite
-        </div>
-        <div class="description">
-          <p>Prix: {{flat.price}} €</p>
-          <p>Pièce{{flat.rooms > 1 ? 's' : ''}}: {{flat.rooms}}</p>
-          <p>Taille: {{flat.size}} m²</p>
-        </div>
-      </div>
-      <div class="ui bottom attached buttons">
-        <button class="ui teal button" ng-click="openTab(flat.url)">Site</button>
-        <button class="ui grey button">Fiche</button>
-      </div>
-    </div>
-  </div>
-</section>
+
+<div ui-view></div>
+
 </body>
+
+<link rel="stylesheet" href="bower_components/owlcarousel/owl-carousel/owl.carousel.css"/>
+<link rel="stylesheet" href="bower_components/owlcarousel/owl-carousel/owl.theme.css">
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/moment/moment.js"></script>
 <script src="bower_components/angular-moment/angular-moment.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/owlcarousel/owl-carousel/owl.carousel.min.js"></script>
+
+<script src="list/list.ctrl.js"></script>
+<script src="show/show.ctrl.js"></script>
 </html>

@@ -1,0 +1,13 @@
+.sort-menu {
+    margin: 10px;
+}
+
+.sort-menu span {
+    margin-left: 10px;
+    color: #bdc3c7;
+    cursor: pointer;
+}
+
+.sort-menu .selected {
+    color: black !important;
+}

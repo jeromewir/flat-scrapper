@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="list/list.css"/>
+<section style="margin: 10px;">
+  <div ng-show="!!err" class="ui negative icon message">
+    <i class="inbox icon"></i>
+    <div class="content">
+      <div class="header">Erreur</div>
+      <p>{{err}}</p>
+    </div>
+  </div>
+  <form class="ui form" ng-submit="addFlat()">
+    <div class="field">
+      <label>Ajouter un appartement</label>
+      <div class="ui action input">
+        <input type="text" name="URL" placeholder="Lien de l'appartement" ng-model="flatUrl"/>
+        <button class="ui teal right labeled icon button" ng-class="{'loading': isAdding}">
+          <i class="add icon"></i>
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </form>
+  <h4>Appartements ({{filtered.length}})</h4>
+  <div class="sort-menu">
+    Trier:
+    <span ng-repeat="s in sort" ng-click="setSort(s)" ng-class="{ selected: curSort.field == s.field }">
+      <i class="{{s.icon}} icon"></i>
+      {{s.name}}
+    </span>
+  </div>
+  <div class="ui centered cards">
+    <div class="card" style="margin-left: 10px;margin-right: 10px" ng-repeat="flat in filtered = (flats | filter:search:strict | orderBy : curSort.field : curSort.reverse)">
+      <div class="ui image">
+        <div class="ui ribbon label" style="{{getLabel(flat)}}; color: white">{{flat.website}}</div>
+        <img src="{{flat.photos && flat.photos.length ? flat.photos[0] : ''}}"/>
+      </div>
+      <div class="content">
+        <div class="header">{{flat.name}}</div>
+        <div class="meta">
+          <div class="right floated">{{moment(flat.createdAt).format('DD-MM-YYYY')}}</div>
+          <span ng-show="!flat.visited">En attente de visite</span>
+          <span ng-show="flat.visited">Visité</span>
+        </div>
+        <div class="description">
+          <p>Prix: {{flat.price}} €</p>
+          <p>Pièce{{flat.rooms > 1 ? 's' : ''}}: {{flat.rooms}}</p>
+          <p>Taille: {{flat.size}} m²</p>
+        </div>
+      </div>
+      <div class="ui bottom attached buttons">
+        <button class="ui teal button" ng-click="openTab(flat.url)">Site</button>
+        <button class="ui grey button" ui-sref="flatShow({ flatId: flat._id })">Fiche</button>
+      </div>
+    </div>
+  </div>
+</section>

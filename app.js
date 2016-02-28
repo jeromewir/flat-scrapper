@@ -58,6 +58,36 @@ app.post('/api/flat', (req, res) => {
   });
 });
 
+app.get('/api/flat/:id', (req, res) => {
+  var Flat = mongo.mongoose.model('Flat');
+
+  Flat.findOne({ _id: req.params.id }, (err, flat) => {
+    if (err) return res.status(500).send({ message: err });
+    if (!flat) return res.status(404).send({ message: 'Flat not found' });
+    return res.send({ flat: flat });
+  });
+});
+
+app.post('/api/flat/:id', (req, res) => {
+  var Flat = mongo.mongoose.model('Flat');
+
+  Flat.update({ _id: req.body.flat._id }, { $set: req.body.flat }, (err, flat) => {
+    if (err) return res.status(500).send({ message: err });
+    if (!flat) return res.status(404).send({ message: 'Flat not found' });
+    console.log(flat);
+    return res.send({ flat: flat });
+  });
+});
+
+app.delete('/api/flat/:id', (req, res) => {
+  var Flat = mongo.mongoose.model('Flat');
+
+  Flat.remove({ _id: req.params.id }, (err) => {
+    if (err) return res.status(500).send({ message: err });
+    res.status(204).send();
+  });
+});
+
 function addFlat(flat, next) {
   var Flat = mongo.mongoose.model('Flat');
   Flat.create(flat, next);

@@ -1,0 +1,40 @@
+.flat-photo {
+    text-align: center;
+}
+
+.flat {
+    margin: 15px;
+}
+
+.additional-infos .column {
+    text-align: center !important;
+}
+
+.additional-infos {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+
+.additional-infos h4 {
+    display: inline-block;
+}
+
+@media screen and (max-width: 700px) {
+    .ui.form {
+        margin-left: auto;
+        margin-right: auto;
+        width: 90%;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .ui.form {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+}
+
+.ui.form {
+    padding-bottom: 20px;
+}

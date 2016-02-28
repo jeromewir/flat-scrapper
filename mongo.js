@@ -18,6 +18,9 @@ class Mongo {
       photos: [String],
       url: String,
       website: String,
+      visited: Boolean,
+      district: String,
+      comment: String,
     }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }});
 
     mongoose.model('Flat', FlatSchema);
