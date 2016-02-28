@@ -117,6 +117,6 @@ app.get('/api/flat', (req, res) => {
 
 app.use(express.static('app'));
 
-app.listen(3000, function () {
+app.listen(3001, function () {
   console.log('App is listening');
 });
